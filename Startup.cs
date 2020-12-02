@@ -31,7 +31,7 @@ namespace pwiapi
 
             services.AddControllers();
 
-            services.AddDbContext<ConfigurationContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
+            services.AddDbContext<ConfigurationContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ConnectionOne"));
             });
             services.AddSwaggerGen(c =>
             {
