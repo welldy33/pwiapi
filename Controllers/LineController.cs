@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using pwiapi.Data;
 using pwiapi.Models;
+using AutoMapper;
+using pwiapi.Dtos;
 
 namespace pwiapi.Controllers
 {
@@ -13,22 +15,34 @@ namespace pwiapi.Controllers
     public class LineController : ControllerBase
     {
         private readonly ILineRepo _repository;
+        private readonly IMapper _mapper;
 
-        public LineController(ILineRepo repository) {
+        public LineController(ILineRepo repository,IMapper mapper) {
             _repository = repository;
+            _mapper = mapper;
         }
         //private readonly MockLineRepo _repository = new MockLineRepo();
 
         [HttpGet]
-        public ActionResult<IEnumerable<Line>> GetAllLines() {
+        //public ActionResult<IEnumerable<Line>> GetAllLines() {
+        public ActionResult<IEnumerable<LineReadDtos>> GetAllLines()
+        {
             var lineItems = _repository.GetLines();
-            return Ok(lineItems);
+            //return Ok(lineItems);
+            return Ok(_mapper.Map<IEnumerable<LineReadDtos>>(lineItems));
         }
 
         [HttpGet("{lineno}")]
-        public ActionResult<Line> GetLineByNo(string lineno) {
+        //public ActionResult<Line> GetLineByNo(string lineno)
+        //{
+         public ActionResult<LineReadDtos> GetLineByNo(string lineno) {
             var lineItem = _repository.GetLineByNo(lineno);
-            return Ok(lineItem);
+            if (lineItem != null)
+            {
+                // return Ok(lineItem);
+                return Ok(_mapper.Map<LineReadDtos>(lineItem));
+            }
+            return NotFound();
         }
     }
 }
