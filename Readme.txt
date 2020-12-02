@@ -1,0 +1,3 @@
+
+1.Microsoft.EntityFrameworkCore
+2.Microsoft.EntityFrameworkCore.SqlServer
