@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using pwiapi.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace pwiapi
 {
@@ -28,11 +29,12 @@ namespace pwiapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-
-            services.AddDbContext<ConfigurationContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ConnectionOne"));
+            services.AddDbContext<LineContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ConnectionOne"));
             });
+            services.AddControllers();
+            //  services.AddScoped(typeof(ILineRepo<>), typeof(LineContext<>));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
+            services.AddScoped<ILineRepo,SqlLineRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "pwiapi", Version = "v1" });

@@ -1,3 +1,5 @@
 
 1.Microsoft.EntityFrameworkCore
 2.Microsoft.EntityFrameworkCore.SqlServer
+3.Microsoft.EntityFrameworkCore.Design
+4.AutoMapper.Extensions.Microsoft.DependencyInjection
