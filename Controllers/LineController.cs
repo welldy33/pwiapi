@@ -55,5 +55,18 @@ namespace pwiapi.Controllers
             //return Ok(lineReadDto);
             return CreatedAtRoute(nameof(GetLineByNo),new {lineno=lineReadDto.LINE_NO}, lineReadDto); 
          }
+
+        [HttpPut]
+        public ActionResult UpdateLine(string lineno, LineUpdateDtos cud) {
+            var lineModelFromRepo = _repository.GetLineByNo(lineno);
+            if (lineModelFromRepo == null) {
+                return NotFound();
+            }
+
+            _mapper.Map(cud, lineModelFromRepo);
+            _repository.UpdateLine(lineModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }
