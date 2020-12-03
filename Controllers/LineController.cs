@@ -11,14 +11,14 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace pwiapi.Controllers
 {
-    [Route("api/commands")]
+    [Route("api/line")]
     [ApiController]
     public class LineController : ControllerBase
     {
         private readonly ILineRepo _repository;
         private readonly IMapper _mapper;
 
-        public LineController(ILineRepo repository,IMapper mapper) {
+        public LineController(ILineRepo repository, IMapper mapper) {
             _repository = repository;
             _mapper = mapper;
         }
@@ -28,11 +28,21 @@ namespace pwiapi.Controllers
         //public ActionResult<IEnumerable<Line>> GetAllLines() {
         public ActionResult<IEnumerable<LineReadDtos>> GetAllLines()
         {
-            var lineItems = _repository.GetLines();
-            //return Ok(lineItems);
-            return Ok(_mapper.Map<IEnumerable<LineReadDtos>>(lineItems));
-        }
+            var lineItems = _repository.GetLines().Where(s => s.STOP_MK == "Y").Select(s => new { NO = s.LINE_NO, NAME = s.LINE_NM });
+            // var ret = lineItems.Where(s => s.STOP_MK == "Y").Select(s =>new {NO=s.LINE_NO,NAME=s.LINE_NM }) .ToArray();
 
+            return Ok(lineItems);
+            // return Ok(_mapper.Map<IEnumerable<LineReadDtos>>(lineItems));
+            // return Ok(ret)
+        }
+        
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult TestGet(LineParam dt) 
+        {
+            Dictionary<string,object> a = new Dictionary<string, object>();
+            return Ok(dt);
+        }
         [HttpGet("{lineno}",Name = "GetLineByNo")]
         //public ActionResult<Line> GetLineByNo(string lineno)
         //{
