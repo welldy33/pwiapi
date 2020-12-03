@@ -37,5 +37,10 @@ namespace pwiapi.Data
         {
             return (_context.SaveChanges()>=0);
         }
+
+        public void UpdateLine(Line ln)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

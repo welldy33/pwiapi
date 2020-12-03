@@ -10,5 +10,6 @@ namespace pwiapi.Data
         IEnumerable<Line> GetLines();
         Line GetLineByNo(string lineNo);
         void CreateLine(Line ln);
+        void UpdateLine(Line ln);
     }
 }

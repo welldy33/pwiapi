@@ -32,7 +32,7 @@ namespace pwiapi.Controllers
             return Ok(_mapper.Map<IEnumerable<LineReadDtos>>(lineItems));
         }
 
-        [HttpGet("{lineno}")]
+        [HttpGet("{lineno}",Name = "GetLineByNo")]
         //public ActionResult<Line> GetLineByNo(string lineno)
         //{
          public ActionResult<LineReadDtos> GetLineByNo(string lineno) {
@@ -49,7 +49,11 @@ namespace pwiapi.Controllers
         public ActionResult<LineReadDtos> CreateLine(LineCreateDtos lcd) {
             var lineModel = _mapper.Map<Line>(lcd);
             _repository.CreateLine(lineModel);
-            return Ok(lineModel);
-        }
+            _repository.SaveChanges();
+
+            var lineReadDto = _mapper.Map<LineReadDtos>(lineModel);
+            //return Ok(lineReadDto);
+            return CreatedAtRoute(nameof(GetLineByNo),new {lineno=lineReadDto.LINE_NO}, lineReadDto); 
+         }
     }
 }
