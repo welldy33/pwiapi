@@ -23,6 +23,15 @@ namespace pwiapi.Data
             _context.CMN_LINE.Add(ln);
         }
 
+        public void DeleteLine(Line ln)
+        {
+            if (ln == null)
+            {
+                throw new ArgumentNullException(nameof(ln));
+            }
+            _context.CMN_LINE.Remove(ln);
+        }
+
         public Line GetLineByNo(string lineNo)
         {
             return _context.CMN_LINE.FirstOrDefault(p => p.LINE_NO == lineNo);
@@ -40,7 +49,7 @@ namespace pwiapi.Data
 
         public void UpdateLine(Line ln)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

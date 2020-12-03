@@ -11,5 +11,6 @@ namespace pwiapi.Data
         Line GetLineByNo(string lineNo);
         void CreateLine(Line ln);
         void UpdateLine(Line ln);
+        void DeleteLine(Line ln);
     }
 }

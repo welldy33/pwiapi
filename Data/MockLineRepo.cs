@@ -11,6 +11,11 @@ namespace pwiapi.Data
             throw new System.NotImplementedException();
         }
 
+        public void DeleteLine(Line ln)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Line GetLineByNo(string lineNo)
         {
             return new Line { LINE_NO = "TEST", LINE_NM = "LINENAME", AREA_NO = "T1", ADD_USER = "USR", ADD_TIME = "234234" };

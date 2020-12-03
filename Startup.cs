@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using pwiapi.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Newtonsoft.Json.Serialization;
 
 namespace pwiapi
 {
@@ -31,7 +32,7 @@ namespace pwiapi
         {
             services.AddDbContext<LineContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ConnectionOne"));
             });
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(s=> { s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); });
             //  services.AddScoped(typeof(ILineRepo<>), typeof(LineContext<>));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
             services.AddScoped<ILineRepo,SqlLineRepo>();

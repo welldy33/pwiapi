@@ -7,6 +7,7 @@ using pwiapi.Data;
 using pwiapi.Models;
 using AutoMapper;
 using pwiapi.Dtos;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace pwiapi.Controllers
 {
@@ -56,9 +57,9 @@ namespace pwiapi.Controllers
             return CreatedAtRoute(nameof(GetLineByNo),new {lineno=lineReadDto.LINE_NO}, lineReadDto); 
          }
 
-        [HttpPut]
+        [HttpPut("{lineno}")]
         public ActionResult UpdateLine(string lineno, LineUpdateDtos cud) {
-            var lineModelFromRepo = _repository.GetLineByNo(lineno);
+            Line lineModelFromRepo = _repository.GetLineByNo(lineno);
             if (lineModelFromRepo == null) {
                 return NotFound();
             }
@@ -68,5 +69,38 @@ namespace pwiapi.Controllers
             _repository.SaveChanges();
             return NoContent();
         }
+
+        //PATCH API
+        [HttpPatch("{lineno}")]
+        public ActionResult PartialCommandUpdate(string lineno, JsonPatchDocument<LineUpdateDtos> patchDoc) {
+            Line lineModelFromRepo = _repository.GetLineByNo(lineno);
+            if (lineModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            var lineToPatch = _mapper.Map<LineUpdateDtos>(lineModelFromRepo);
+            patchDoc.ApplyTo(lineToPatch, ModelState);
+            if (!TryValidateModel(lineToPatch)) {
+                return ValidationProblem(ModelState);
+            }
+            _mapper.Map(lineToPatch, lineModelFromRepo);
+            _repository.UpdateLine(lineModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        //Delete
+        [HttpDelete("{lineno}")]
+        public ActionResult DeleteLine(string lineno) {
+            Line lineModelFromRepo = _repository.GetLineByNo(lineno);
+            if (lineModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteLine(lineModelFromRepo);
+            _repository.SaveChanges();
+            return Ok();
+        }
+
     }
 }

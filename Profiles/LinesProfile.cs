@@ -15,6 +15,7 @@ namespace pwiapi.Profiles
             CreateMap<Line,LineReadDtos>();
             CreateMap<LineCreateDtos, Line>();
             CreateMap<LineUpdateDtos, Line>();
+            CreateMap<Line, LineUpdateDtos>();
         }
         
 
