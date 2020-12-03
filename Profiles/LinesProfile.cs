@@ -11,7 +11,9 @@ namespace pwiapi.Profiles
     public class LinesProfile:Profile
     {
         public LinesProfile() {
+            //Source->Target
             CreateMap<Line,LineReadDtos>();
+            CreateMap<LineCreateDtos, Line>();
         }
         
 

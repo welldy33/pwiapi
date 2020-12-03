@@ -6,7 +6,9 @@ namespace pwiapi.Data
 {
     public interface ILineRepo
     {
+        bool SaveChanges();
         IEnumerable<Line> GetLines();
         Line GetLineByNo(string lineNo);
+        void CreateLine(Line ln);
     }
 }

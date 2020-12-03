@@ -44,5 +44,12 @@ namespace pwiapi.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost]
+        public ActionResult<LineReadDtos> CreateLine(LineCreateDtos lcd) {
+            var lineModel = _mapper.Map<Line>(lcd);
+            _repository.CreateLine(lineModel);
+            return Ok(lineModel);
+        }
     }
 }
