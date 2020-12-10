@@ -63,4 +63,3 @@ D:\API\pwiapi\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\API\pwiapi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\API\pwiapi\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\API\pwiapi\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
-D:\API\pwiapi\obj\Debug\net5.0\pwiapi.csprojAssemblyReference.cache

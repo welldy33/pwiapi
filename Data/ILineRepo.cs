@@ -12,5 +12,6 @@ namespace pwiapi.Data
         void CreateLine(Line ln);
         void UpdateLine(Line ln);
         void DeleteLine(Line ln);
+        IEnumerable<Building> Getbuildings();
     }
 }

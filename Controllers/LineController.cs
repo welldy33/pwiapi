@@ -38,10 +38,16 @@ namespace pwiapi.Controllers
         
         [HttpGet]
         [Route("[action]")]
-        public ActionResult TestGet(LineParam dt) 
+        public ActionResult<IEnumerable<Building>> GetBuilding() 
         {
-            Dictionary<string,object> a = new Dictionary<string, object>();
-            return Ok(dt);
+            var buildingList = _repository.Getbuildings();
+            //    .Where(s => s.KIND == "BUILDING").Select(s => 
+            //new {
+            //    BUILDING_NO=s.LIB_NO,
+            //    BUILDING_NM=s.LIB_NM,
+            //    STOP_MK=s.STOP_MK
+            //});
+            return Ok(buildingList);
         }
         [HttpGet("{lineno}",Name = "GetLineByNo")]
         //public ActionResult<Line> GetLineByNo(string lineno)

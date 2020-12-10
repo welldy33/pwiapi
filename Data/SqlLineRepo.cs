@@ -32,6 +32,11 @@ namespace pwiapi.Data
             _context.CMN_LINE.Remove(ln);
         }
 
+        public IEnumerable<Building> Getbuildings()
+        {
+            return _context.CMN_LIBRARY.ToList();
+        }
+
         public Line GetLineByNo(string lineNo)
         {
             return _context.CMN_LINE.FirstOrDefault(p => p.LINE_NO == lineNo);

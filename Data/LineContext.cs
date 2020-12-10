@@ -13,5 +13,6 @@ namespace pwiapi.Data
         {
         }
         public DbSet<Line> CMN_LINE { get; set; } //Table Name 
+        public DbSet<Building> CMN_LIBRARY { get; set; }
     }
 }
